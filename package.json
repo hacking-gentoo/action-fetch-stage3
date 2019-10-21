@@ -1,0 +1,23 @@
+{
+  "name": "action-fetch-stage3",
+  "version": "1.0.0",
+  "description": "Fetch the most recent Gentoo Linux stage 3 archive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacking-gentoo/action-fetch-stage3.git"
+  },
+  "keywords": [],
+  "author": "Max Hacking",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hacking-gentoo/action-fetch-stage3/issues"
+  },
+  "homepage": "https://github.com/hacking-gentoo/action-fetch-stage3#readme",
+  "dependencies": {
+    "@actions/exec": "^1.0.1"
+  }
+}
