@@ -1,3 +1,3 @@
 const exec = require('@actions/exec');
 
-exec.exec('./fetch-stage3.sh');
+exec.exec(__dirname + '/fetch-stage3.sh');
