@@ -100,6 +100,7 @@ function download_stage3()
     fi
 }
 
+cd "${GITHUB_WORKSPACE}"
 echo -n "Determining archive name..."
 stage3_archive_name=$(fetch_stage3_archive_name)
 echo "${stage3_archive_name}"
