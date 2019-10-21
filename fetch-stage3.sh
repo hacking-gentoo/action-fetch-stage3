@@ -86,7 +86,7 @@ function download_stage3()
     for file in "${stage3_file}" "${stage3_contents}" "${stage3_digests}"; do
         [ -f "${DOWNLOAD_DIR}/${file}" ] && continue
 
-        wget -O "${DOWNLOAD_DIR}/${file}" "${ARCH_URL}${file}" || exit $?
+        wget --no-verbose -O "${DOWNLOAD_DIR}/${file}" "${ARCH_URL}${file}" || exit $?
     done
 
     # some experimental stage3 builds don't update the file names in the digest file, replace so sha512 check won't fail
