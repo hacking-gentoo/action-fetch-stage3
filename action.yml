@@ -1,5 +1,9 @@
-name: 'Fetch Gentoo Linux Stage 3'
+name: 'action-fetch-stage3'
 description: 'Fetch the most recent Gentoo Linux stage 3 archive'
 runs:
   using: 'node12'
   main: 'index.js'
+branding:
+  icon: 'download'
+  color: 'purple'
+  
