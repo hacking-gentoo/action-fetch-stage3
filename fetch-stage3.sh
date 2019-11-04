@@ -8,7 +8,8 @@ DOWNLOAD_DIR="."
 
 function die()
 {
-    echo "$1"
+    echo "::error::$1"
+	echo "------------------------------------------------------------------------------------------------------------------------"
     exit 1
 }
 
@@ -17,7 +18,6 @@ function die()
 # 1: stage3_base (i.e. stage3-amd64-hardened+nomultilib)
 function get_stage3_archive_regex() 
 {
-    __get_stage3_archive_regex=
     local stage3_base
     stage3_base="$1"
     echo "${stage3_base//+/\\+}-([0-9]{8})(T[0-9]{6}Z)?\\.tar\\.(bz2|xz)"
@@ -72,15 +72,12 @@ function sha_sum()
 function download_stage3() 
 {
     [[ -d "${DOWNLOAD_DIR}" ]] || mkdir -p "${DOWNLOAD_DIR}"
-    local is_autobuild stage3_file stage3_contents stage3_digests sha512_hashes sha512_check sha512_failed \
-          wget_exit wget_args
-    is_autobuild=false
+    local stage3_file stage3_contents stage3_digests sha512_hashes sha512_check sha512_failed
     stage3_file="$1"
     stage3_contents="${stage3_file}.CONTENTS"
     stage3_digests="${stage3_file}.DIGESTS"
     if [[ "${ARCH_URL}" == *autobuilds*  ]]; then
         stage3_digests="${stage3_file}.DIGESTS.asc"
-        is_autobuild=true
     fi
 
     for file in "${stage3_file}" "${stage3_contents}" "${stage3_digests}"; do
@@ -100,9 +97,26 @@ function download_stage3()
     fi
 }
 
-cd "${GITHUB_WORKSPACE}"
+cat << END
+------------------------------------------------------------------------------------------------------------------------
+                         _   _                    __     _       _               _                   ____  
+                        | | (_)                  / _|   | |     | |             | |                 |___ \ 
+               __ _  ___| |_ _  ___  _ __ ______| |_ ___| |_ ___| |__ ______ ___| |_ __ _  __ _  ___  __) |
+              / _\` |/ __| __| |/ _ \| '_ \______|  _/ _ \ __/ __| '_ \______/ __| __/ _\` |/ _\` |/ _ \|__ < 
+             | (_| | (__| |_| | (_) | | | |     | ||  __/ || (__| | | |     \__ \ || (_| | (_| |  __/___) |
+              \__,_|\___|\__|_|\___/|_| |_|     |_| \___|\__\___|_| |_|     |___/\__\__,_|\__, |\___|____/ 
+                                                                                           __/ |           
+                                                                                          |___/            
+             https://github.com/hacking-gentoo/action-fetch-stage3                     (c) 2019 Max Hacking 
+------------------------------------------------------------------------------------------------------------------------
+END
+
+[[ -z "${GITHUB_WORKSPACE}" ]] && die "Must set GITHUB_WORKSPACE in env"
+cd "${GITHUB_WORKSPACE}" || die "GITHUB_WORKSPACE does not exist"
 echo -n "Determining archive name..."
 stage3_archive_name=$(fetch_stage3_archive_name)
 echo "${stage3_archive_name}"
 echo "Downloading archive..."
 download_stage3 "${stage3_archive_name}"
+
+echo "------------------------------------------------------------------------------------------------------------------------"
