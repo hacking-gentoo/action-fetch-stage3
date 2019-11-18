@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-MIRROR="http://distfiles.gentoo.org/"
+#MIRROR="http://distfiles.gentoo.org/"
+MIRROR="https://gentoo.osuosl.org/"
 STAGE3_BASE="stage3-amd64-hardened+nomultilib"
 ARCH="${ARCH:-amd64}"
 ARCH_URL="${ARCH_URL:-${MIRROR}releases/${ARCH}/autobuilds/current-${STAGE3_BASE}/}"
@@ -81,9 +82,8 @@ function download_stage3()
     fi
 
     for file in "${stage3_file}" "${stage3_contents}" "${stage3_digests}"; do
-        [ -f "${DOWNLOAD_DIR}/${file}" ] && continue
-
-        wget --no-verbose -O "${DOWNLOAD_DIR}/${file}" "${ARCH_URL}${file}" || exit $?
+    	echo "Downloading ${ARCH_URL}${file}"
+    	wget --no-verbose -O "${DOWNLOAD_DIR}/${file}" "${ARCH_URL}${file}" || die "Download of ${ARCH_URL}${file} failed"
     done
 
     # some experimental stage3 builds don't update the file names in the digest file, replace so sha512 check won't fail
