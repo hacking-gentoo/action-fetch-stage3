@@ -2,7 +2,7 @@
 
 #MIRROR="http://distfiles.gentoo.org/"
 MIRROR="https://gentoo.osuosl.org/"
-STAGE3_BASE="stage3-amd64-hardened+nomultilib"
+STAGE3_BASE="stage3-amd64-hardened-nomultilib-openrc"
 ARCH="${ARCH:-amd64}"
 ARCH_URL="${ARCH_URL:-${MIRROR}releases/${ARCH}/autobuilds/current-${STAGE3_BASE}/}"
 DOWNLOAD_DIR="."
